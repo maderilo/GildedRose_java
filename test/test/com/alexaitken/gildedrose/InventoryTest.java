@@ -19,17 +19,16 @@ public class InventoryTest {
 //	new Item("Conjured Mana Cake", 3, 6)
 	
 	@Test
-	public void should_never_changes_quailty_of_Sulfuras() throws Exception {
+	public void should_never_changes_quality_of_Sulfuras() throws Exception {
 		Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", 0, 80);
 		
-		Inventory sut = new Inventory((Item[]) Arrays.asList(new Item("Sulfuras, Hand of Ragnaros", 0, 80)).toArray());
+		Inventory sut = new Inventory((Item[]) Arrays.asList(sulfuras).toArray());
 		
 		sut.updateQuality();
 		
 		assertEquals(80, sulfuras.getQuality());
-		
-		
 	}
+	
 	@Test
 	public void should_never_changes_sellIn_of_Sulfuras() throws Exception {
 		Item sulfuras = new Item("Sulfuras, Hand of Ragnaros", 0, 80);
@@ -39,11 +38,7 @@ public class InventoryTest {
 		sut.updateQuality();
 		
 		assertEquals(0, sulfuras.getSellIn());
-		
-		
 	}
-	
-	
 	
 	@Test
 	public void should_lower_the_sellIn_by_one_for_normal_items() throws Exception {
@@ -52,7 +47,6 @@ public class InventoryTest {
 		Inventory sut = new Inventory((Item[]) Arrays.asList(normalItem).toArray());
 		
 		sut.updateQuality();
-		
 		
 		assertEquals(9, normalItem.getSellIn());
 	}
@@ -65,7 +59,6 @@ public class InventoryTest {
 		
 		sut.updateQuality();
 		
-		
 		assertEquals(19, normalItem.getQuality());
 	}
 	
@@ -76,7 +69,6 @@ public class InventoryTest {
 		Inventory sut = new Inventory((Item[]) Arrays.asList(normalItem).toArray());
 		
 		sut.updateQuality();
-		
 		
 		assertEquals(0, normalItem.getQuality());
 	}
@@ -89,10 +81,8 @@ public class InventoryTest {
 		
 		sut.updateQuality();
 		
-		
 		assertEquals(23, normalItem.getQuality());
 	}
-	
 	
 	@Test
 	public void should_increase_the_quality_of_aged_brie_as_it_gets_older() throws Exception {
@@ -102,10 +92,8 @@ public class InventoryTest {
 		
 		sut.updateQuality();
 		
-		
 		assertEquals(26, agedBrie.getQuality());
 	}
-	
 	
 	@Test
 	public void should_not_increase_the_quality_of_aged_brie_over_50() throws Exception {
@@ -114,7 +102,6 @@ public class InventoryTest {
 		Inventory sut = new Inventory((Item[]) Arrays.asList(agedBrie).toArray());
 		
 		sut.updateQuality();
-		
 		
 		assertEquals(50, agedBrie.getQuality());
 	}
@@ -127,7 +114,6 @@ public class InventoryTest {
 		
 		sut.updateQuality();
 		
-		
 		assertEquals(0, backStagePass.getQuality());
 	}
 	
@@ -138,7 +124,6 @@ public class InventoryTest {
 		Inventory sut = new Inventory((Item[]) Arrays.asList(backStagePass).toArray());
 		
 		sut.updateQuality();
-		
 		
 		assertEquals(21, backStagePass.getQuality());
 	}
@@ -151,7 +136,6 @@ public class InventoryTest {
 		
 		sut.updateQuality();
 		
-		
 		assertEquals(29, backStagePass.getQuality());
 	}
 	
@@ -163,31 +147,21 @@ public class InventoryTest {
 		
 		sut.updateQuality();
 		
-		
 		assertEquals(47, backStagePass.getQuality());
 	}
 	
 	@Test
 	public void should_not_increase_backstage_passes_above_a_quality_of_50() throws Exception {
 		Item backStagePassMoreThan10DaysAway = new Item("Backstage passes to a TAFKAL80ETC concert", 15, 50);
-		
-		Item backStagePass10DaysAway = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49);
+		Item backStagePass10DaysAway = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49);
 		Item backStagePass5DaysAway = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 48);
 		
 		Inventory sut = new Inventory((Item[]) Arrays.asList(backStagePassMoreThan10DaysAway, backStagePass10DaysAway, backStagePass5DaysAway).toArray());
 		
 		sut.updateQuality();
 		
-		
 		assertEquals(50, backStagePassMoreThan10DaysAway.getQuality());
 		assertEquals(50, backStagePass10DaysAway.getQuality());
 		assertEquals(50, backStagePass5DaysAway.getQuality());
-	}
-	
-	
-	
-	
-	
-	
-	
+	}	
 }
