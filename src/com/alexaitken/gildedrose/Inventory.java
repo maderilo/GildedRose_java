@@ -24,9 +24,13 @@ public class Inventory {
 	
 	public void updateQuality() {
 		for (int i = 0; i < items.length; i++) {
-			updateSellin(items[i]);
-			updateQuality(items[i]);
+			updateItem(items[i]);
 		}
+	}
+	
+	private void updateItem(Item i){
+		updateSellin(i);
+		updateQuality(i);
 	}
 	
 	
@@ -37,6 +41,7 @@ public class Inventory {
 	
 	
 	private void updateQuality(Item i){
+		
 		if (!isLegendary(i)) {
 			applyQualityChange(i, getQualityChange(i));
 		}
