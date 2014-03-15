@@ -38,28 +38,7 @@ public class Inventory {
 	
 	private void updateQuality(Item i){
 		if (!isLegendary(i)) {
-			if (isAgedBrie(i)) {
-				i.setQuality(i.getQuality()+1);
-			}
-			else if (isBackstagePass(i)) {
-				if (i.getSellIn()>=10){
-					i.setQuality(i.getQuality()+1);
-				}
-				else if (i.getSellIn()>=5){
-					i.setQuality(i.getQuality()+2);
-				}
-				else if (i.getSellIn()>=0){
-					i.setQuality(i.getQuality()+3);
-				}
-				else i.setQuality(0);
-			}
-			else{
-				int qualityLoss;
-				if (i.getSellIn()<0) qualityLoss = 2;
-				else qualityLoss = 1;
-				i.setQuality(i.getQuality()-qualityLoss);
-			}
-			limitQuality(i);
+			applyQualityChange(i, getQualityChange(i));
 		}
 	}
 	
@@ -77,8 +56,36 @@ public class Inventory {
 	}
 	
 	
+	private int getQualityChange(final Item i){
+		if (isLegendary(i)) return 0;
+		if (isAgedBrie(i)) return 1;
+		if (isBackstagePass(i)) {
+			if (i.getSellIn()>=10){
+				return 1;
+			}
+			else if (i.getSellIn()>=5){
+				return 2;
+			}
+			else if (i.getSellIn()>=0){
+				return  3;
+			}
+			else return -i.getQuality();
+		}
+		if (i.getSellIn()<0) return -2;
+		return -1;
+	}
+	
+	private void applyQualityChange(Item i, int qualityChange) {
+		if (!isLegendary(i)){
+			i.setQuality(i.getQuality()+qualityChange );
+			limitQuality(i);
+		}
+	}
+	
 	private void limitQuality(Item i){
-		if (i.getQuality() < 0) i.setQuality(0);
-		if (i.getQuality() > 50) i.setQuality(50);	
+		if (!isLegendary(i)){
+			if (i.getQuality() < 0) i.setQuality(0);
+			if (i.getQuality() > 50) i.setQuality(50);	
+		}
 	}
 }
