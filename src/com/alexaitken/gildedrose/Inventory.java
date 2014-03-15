@@ -31,18 +31,17 @@ public class Inventory {
 	
 	
 	private void updateSellin(Item i){
-		if (i.getName() != "Sulfuras, Hand of Ragnaros")
+		if (!isLegendary(i))
 			i.setSellIn(i.getSellIn() -1);
 	}
 	
 	
 	private void updateQuality(Item i){
-		if (i.getName() != "Sulfuras, Hand of Ragnaros")
-		{
-			if (i.getName() == "Aged Brie") {
+		if (!isLegendary(i)) {
+			if (isAgedBrie(i)) {
 				i.setQuality(i.getQuality()+1);
 			}
-			else if (i.getName() == "Backstage passes to a TAFKAL80ETC concert") {
+			else if (isBackstagePass(i)) {
 				if (i.getSellIn()>=10){
 					i.setQuality(i.getQuality()+1);
 				}
@@ -62,6 +61,19 @@ public class Inventory {
 			}
 			limitQuality(i);
 		}
+	}
+	
+	
+	private boolean isLegendary(Item i){
+		return i.getName() == "Sulfuras, Hand of Ragnaros";
+	}
+	
+	private boolean isAgedBrie(Item i){
+		return i.getName() == "Aged Brie";
+	}
+	
+	private boolean isBackstagePass(Item i){
+		return i.getName() == "Backstage passes to a TAFKAL80ETC concert";
 	}
 	
 	
