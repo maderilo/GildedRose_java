@@ -24,27 +24,15 @@ public class Inventory {
 	
 	public void updateQuality() {
 		for (int i = 0; i < items.length; i++) {
-			updateItem(items[i]);
+			getItemUpdater(items[i]).update();
 		}
 	}
 	
-	private void updateItem(Item i){
-		updateSellin(i);
-		updateQuality(i);
-	}
-	
-	
-	private void updateSellin(Item i){
-		if (!isLegendary(i))
-			i.setSellIn(i.getSellIn() -1);
-	}
-	
-	
-	private void updateQuality(Item i){
-		
-		if (!isLegendary(i)) {
-			applyQualityChange(i, getQualityChange(i));
-		}
+	ItemUpdater getItemUpdater(Item i){
+		if (isLegendary(i)) return new LegendaryItemUpdater(i);
+		if (isAgedBrie(i)) return new AgedBrieUpdater(i);
+		if (isBackstagePass(i)) return new BackStagePassUpdater(i);
+		return new NormalItemUpdater(i);
 	}
 	
 	
@@ -58,39 +46,5 @@ public class Inventory {
 	
 	private boolean isBackstagePass(Item i){
 		return i.getName() == "Backstage passes to a TAFKAL80ETC concert";
-	}
-	
-	
-	private int getQualityChange(final Item i){
-		if (isLegendary(i)) return 0;
-		if (isAgedBrie(i)) return 1;
-		if (isBackstagePass(i)) {
-			if (i.getSellIn()>=10){
-				return 1;
-			}
-			else if (i.getSellIn()>=5){
-				return 2;
-			}
-			else if (i.getSellIn()>=0){
-				return  3;
-			}
-			else return -i.getQuality();
-		}
-		if (i.getSellIn()<0) return -2;
-		return -1;
-	}
-	
-	private void applyQualityChange(Item i, int qualityChange) {
-		if (!isLegendary(i)){
-			i.setQuality(i.getQuality()+qualityChange );
-			limitQuality(i);
-		}
-	}
-	
-	private void limitQuality(Item i){
-		if (!isLegendary(i)){
-			if (i.getQuality() < 0) i.setQuality(0);
-			if (i.getQuality() > 50) i.setQuality(50);	
-		}
 	}
 }
