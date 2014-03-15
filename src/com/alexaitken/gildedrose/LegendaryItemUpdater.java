@@ -1,9 +1,9 @@
 package com.alexaitken.gildedrose;
 
-public class LengendaryItemUpdater extends ItemUpdater {
+public class LegendaryItemUpdater extends ItemUpdater {
 //Legendary Items sellIn and Quality values never change
 	
-	LengendaryItemUpdater(Item i) {
+	LegendaryItemUpdater(Item i) {
 		super(i);
 	}
 
