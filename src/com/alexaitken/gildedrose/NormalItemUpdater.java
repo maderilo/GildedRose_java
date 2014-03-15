@@ -8,6 +8,7 @@ public class NormalItemUpdater extends NonLegendaryItemUpdater {
 
 	@Override
 	protected int getQualityChange() {
+		if (item.getSellIn() < 0) return -2;
 		return -1;
 	}
 }
