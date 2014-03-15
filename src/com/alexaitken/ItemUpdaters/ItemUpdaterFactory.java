@@ -8,6 +8,7 @@ public class ItemUpdaterFactory {
 		if (isLegendary(i)) return new LegendaryItemUpdater(i);
 		if (isAgedBrie(i)) return new AgedBrieUpdater(i);
 		if (isBackstagePass(i)) return new BackStagePassUpdater(i);
+		if (isConjured(i)) return new ConjuredItemUpdater(i);
 		return new NormalItemUpdater(i);
 	}
 	
@@ -21,5 +22,9 @@ public class ItemUpdaterFactory {
 	
 	private static boolean isBackstagePass(Item i){
 		return i.getName() == "Backstage passes to a TAFKAL80ETC concert";
+	}
+	
+	private static boolean isConjured(Item i){
+		return i.getName() == "Conjured Mana Cake";
 	}
 }
