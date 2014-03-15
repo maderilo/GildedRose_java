@@ -1,5 +1,7 @@
 package com.alexaitken.gildedrose;
 
+import com.alexaitken.ItemUpdaters.ItemUpdaterFactory;
+
 public class Inventory {
 
 	private Item[] items;

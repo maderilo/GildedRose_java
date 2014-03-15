@@ -1,8 +1,10 @@
-package com.alexaitken.gildedrose;
+package com.alexaitken.ItemUpdaters;
+
+import com.alexaitken.gildedrose.Item;
 
 public class BackStagePassUpdater extends NonLegendaryItemUpdater {
 
-	public BackStagePassUpdater(Item i) {
+	protected BackStagePassUpdater(Item i) {
 		super(i);
 		// TODO Auto-generated constructor stub
 	}

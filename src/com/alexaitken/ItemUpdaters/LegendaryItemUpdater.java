@@ -1,9 +1,11 @@
-package com.alexaitken.gildedrose;
+package com.alexaitken.ItemUpdaters;
+
+import com.alexaitken.gildedrose.Item;
 
 public class LegendaryItemUpdater extends ItemUpdater {
 //Legendary Items sellIn and Quality values never change
 	
-	LegendaryItemUpdater(Item i) {
+	protected LegendaryItemUpdater(Item i) {
 		super(i);
 	}
 

@@ -1,8 +1,10 @@
-package com.alexaitken.gildedrose;
+package com.alexaitken.ItemUpdaters;
+
+import com.alexaitken.gildedrose.Item;
 
 public class AgedBrieUpdater extends NonLegendaryItemUpdater {
 
-	public AgedBrieUpdater(Item i) {
+	protected AgedBrieUpdater(Item i) {
 		super(i);
 	}
 

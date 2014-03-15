@@ -1,10 +1,12 @@
-package com.alexaitken.gildedrose;
+package com.alexaitken.ItemUpdaters;
+
+import com.alexaitken.gildedrose.Item;
 
 public abstract class ItemUpdater {
 
 	final protected Item item;
 	
-	ItemUpdater(Item i){
+	protected ItemUpdater(Item i){
 		item = i;
 	}
 	

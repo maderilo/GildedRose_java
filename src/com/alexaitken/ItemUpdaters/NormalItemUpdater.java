@@ -1,8 +1,10 @@
-package com.alexaitken.gildedrose;
+package com.alexaitken.ItemUpdaters;
+
+import com.alexaitken.gildedrose.Item;
 
 public class NormalItemUpdater extends NonLegendaryItemUpdater {
 
-	public NormalItemUpdater(Item i) {
+	protected NormalItemUpdater(Item i) {
 		super(i);
 	}
 
