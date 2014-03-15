@@ -24,27 +24,7 @@ public class Inventory {
 	
 	public void updateQuality() {
 		for (int i = 0; i < items.length; i++) {
-			getItemUpdater(items[i]).update();
+			ItemUpdaterFactory.getItemUpdater(items[i]).update();
 		}
-	}
-	
-	ItemUpdater getItemUpdater(Item i){
-		if (isLegendary(i)) return new LegendaryItemUpdater(i);
-		if (isAgedBrie(i)) return new AgedBrieUpdater(i);
-		if (isBackstagePass(i)) return new BackStagePassUpdater(i);
-		return new NormalItemUpdater(i);
-	}
-	
-	
-	private boolean isLegendary(Item i){
-		return i.getName() == "Sulfuras, Hand of Ragnaros";
-	}
-	
-	private boolean isAgedBrie(Item i){
-		return i.getName() == "Aged Brie";
-	}
-	
-	private boolean isBackstagePass(Item i){
-		return i.getName() == "Backstage passes to a TAFKAL80ETC concert";
 	}
 }
