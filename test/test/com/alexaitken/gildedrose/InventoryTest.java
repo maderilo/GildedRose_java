@@ -65,24 +65,44 @@ public class InventoryTest {
 	@Test
 	public void should_not_lower_the_quality_below_zero() throws Exception {
 		Item normalItem = new Item("+5 Dexterity Vest", 10, 0);
+		Item conjuredItem = new Item("Conjured Mana Cake", 3, 0);
 		
-		Inventory sut = new Inventory((Item[]) Arrays.asList(normalItem).toArray());
+		Inventory sut = new Inventory((Item[]) Arrays.asList(normalItem, conjuredItem).toArray());
 		
 		sut.updateQuality();
 		
 		assertEquals(0, normalItem.getQuality());
+		assertEquals(0, conjuredItem.getQuality());
 	}
 	
 	@Test
 	public void should_lower_the_quality_twice_as_fast_once_the_sell_in_date_has_passed() throws Exception {
-		Item normalItem = new Item("+5 Dexterity Vest", -1, 25);
+		int originalQuality = 25;
+		Item passedNormalItem = new Item("+5 Dexterity Vest", -1, originalQuality);
+		Item normalItem = new Item("+5 Dexterity Vest", 5, originalQuality);
+		Item passedConjuredItem = new Item("Conjured Mana Cake", -1, originalQuality);
+		Item conjuredItem = new Item("Conjured Mana Cake", 3, originalQuality);
 		
-		Inventory sut = new Inventory((Item[]) Arrays.asList(normalItem).toArray());
+		Inventory sut = new Inventory((Item[]) Arrays.asList(normalItem, passedNormalItem, passedConjuredItem, conjuredItem).toArray());
 		
 		sut.updateQuality();
 		
-		assertEquals(23, normalItem.getQuality());
+		assertEquals(originalQuality - passedNormalItem.getQuality(), 2*(originalQuality - normalItem.getQuality()));
+		assertEquals(originalQuality - passedConjuredItem.getQuality(), 2*(originalQuality - conjuredItem.getQuality()));
 	}
+	
+	
+	@Test
+	public void should_lower_the_quality_by_two_for_conjured_items() throws Exception {
+		Item conjuredItem = new Item("Conjured Mana Cake", 3, 6);
+		
+		Inventory sut = new Inventory((Item[]) Arrays.asList(conjuredItem).toArray());
+		
+		sut.updateQuality();
+		
+		assertEquals(4, conjuredItem.getQuality());
+	}
+		
 	
 	@Test
 	public void should_increase_the_quality_of_aged_brie_as_it_gets_older() throws Exception {
