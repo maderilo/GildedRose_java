@@ -19,60 +19,54 @@ public class Inventory {
 					new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
 					new Item("Conjured Mana Cake", 3, 6) 
 				};
-
 	}
 
+	
 	public void updateQuality() {
 		for (int i = 0; i < items.length; i++) {
-			if (items[i].getName() != "Aged Brie"
-					&& items[i].getName() != "Backstage passes to a TAFKAL80ETC concert") {
-				if (items[i].getQuality() > 0) {
-					if (items[i].getName() != "Sulfuras, Hand of Ragnaros") {
-						items[i].setQuality(items[i].getQuality() - 1);
-					}
-				}
-			} else {
-				if (items[i].getQuality() < 50) {
-					items[i].setQuality(items[i].getQuality() + 1);
-
-					if (items[i].getName() == "Backstage passes to a TAFKAL80ETC concert") {
-						if (items[i].getSellIn() < 11) {
-							if (items[i].getQuality() < 50) {
-								items[i].setQuality(items[i].getQuality() + 1);
-							}
-						}
-
-						if (items[i].getSellIn() < 6) {
-							if (items[i].getQuality() < 50) {
-								items[i].setQuality(items[i].getQuality() + 1);
-							}
-						}
-					}
-				}
-			}
-
-			if (items[i].getName() != "Sulfuras, Hand of Ragnaros") {
-				items[i].setSellIn(items[i].getSellIn() - 1);
-			}
-
-			if (items[i].getSellIn() < 0) {
-				if (items[i].getName() != "Aged Brie") {
-					if (items[i].getName() != "Backstage passes to a TAFKAL80ETC concert") {
-						if (items[i].getQuality() > 0) {
-							if (items[i].getName() != "Sulfuras, Hand of Ragnaros") {
-								items[i].setQuality(items[i].getQuality() - 1);
-							}
-						}
-					} else {
-						items[i].setQuality(items[i].getQuality()
-								- items[i].getQuality());
-					}
-				} else {
-					if (items[i].getQuality() < 50) {
-						items[i].setQuality(items[i].getQuality() + 1);
-					}
-				}
-			}
+			updateSellin(items[i]);
+			updateQuality(items[i]);
 		}
+	}
+	
+	
+	private void updateSellin(Item i){
+		if (i.getName() != "Sulfuras, Hand of Ragnaros")
+			i.setSellIn(i.getSellIn() -1);
+	}
+	
+	
+	private void updateQuality(Item i){
+		if (i.getName() != "Sulfuras, Hand of Ragnaros")
+		{
+			if (i.getName() == "Aged Brie") {
+				i.setQuality(i.getQuality()+1);
+			}
+			else if (i.getName() == "Backstage passes to a TAFKAL80ETC concert") {
+				if (i.getSellIn()>=10){
+					i.setQuality(i.getQuality()+1);
+				}
+				else if (i.getSellIn()>=5){
+					i.setQuality(i.getQuality()+2);
+				}
+				else if (i.getSellIn()>=0){
+					i.setQuality(i.getQuality()+3);
+				}
+				else i.setQuality(0);
+			}
+			else{
+				int qualityLoss;
+				if (i.getSellIn()<0) qualityLoss = 2;
+				else qualityLoss = 1;
+				i.setQuality(i.getQuality()-qualityLoss);
+			}
+			limitQuality(i);
+		}
+	}
+	
+	
+	private void limitQuality(Item i){
+		if (i.getQuality() < 0) i.setQuality(0);
+		if (i.getQuality() > 50) i.setQuality(50);	
 	}
 }
